@@ -37,13 +37,13 @@
                             <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Foreground="#dcdcdc"  Content="Wem ID:"></Label>
-                        <TextBox Grid.Column="0" Width="100" Name="TextBox1" Background="#303030" Foreground="#dcdcdc" Margin="50,0,0,0" Text="{Binding id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="0" Width="100" Name="TextBox1" Background="#303030" Foreground="#dcdcdc" Margin="50,0,0,0" Text="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                         <Label Grid.Column="1" Foreground="#dcdcdc" Content="Wem Name:"></Label>
-                        <TextBox Grid.Column="1" HorizontalAlignment="Left" Width="200" Margin="75,0,0,0" Background="#303030" Foreground="#dcdcdc" Text="{Binding name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="LabelChanged"></TextBox>
+                        <TextBox Grid.Column="1" HorizontalAlignment="Left" Width="200" Margin="75,0,0,0" Background="#303030" Foreground="#dcdcdc" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="LabelChanged"></TextBox>
                         <Label Grid.Column="2" Foreground="#dcdcdc" Content="Language Enum:"/>
-                        <ComboBox Grid.Column="2" Width="100" SelectedIndex="{Binding languageEnum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding DataContext.languages, ElementName=WemView}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100,0,0,0"/>
+                        <ComboBox Grid.Column="2" Width="100" SelectedIndex="{Binding LanguageEnum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding DataContext.languages, ElementName=WemView}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100,0,0,0"/>
                         <Label Grid.Column="3" Foreground="#dcdcdc" Content="Wem Length:"></Label>
-                        <Label Grid.Column="3" Foreground="#dcdcdc" Margin="75,0,0,0" Content="{Binding length}"></Label>
+                        <Label Grid.Column="3" Foreground="#dcdcdc" Margin="75,0,0,0" Content="{Binding Length}"></Label>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

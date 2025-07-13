@@ -72,8 +72,8 @@ namespace RingingBloom.WWiseTypes.ViewModels
 
         public void ReplaceWem(Wem newWem,int index)
         {
-            newWem.id = npck.WemList[index].id;
-            newWem.languageEnum = npck.WemList[index].languageEnum;
+            newWem.Id = npck.WemList[index].Id;
+            newWem.LanguageEnum = npck.WemList[index].LanguageEnum;
             npck.WemList[index] = newWem;
             OnPropertyChanged("wems");
         }
@@ -90,11 +90,11 @@ namespace RingingBloom.WWiseTypes.ViewModels
                 string name;
                 if (exportIds == MessageBoxResult.Yes)
                 {
-                    name = savePath + "\\" + newWem.name + ".wem";
+                    name = savePath + "\\" + newWem.Name + ".wem";
                 }
                 else
                 {
-                    name = savePath + "\\" + newWem.id + ".wem";
+                    name = savePath + "\\" + newWem.Id + ".wem";
                 }
                 BinaryWriter bw = new BinaryWriter(new FileStream(name, FileMode.OpenOrCreate));
                 bw.Write(newWem.file);
@@ -117,7 +117,7 @@ namespace RingingBloom.WWiseTypes.ViewModels
             {
                 try
                 {
-                    npck.WemList[i].id = Convert.ToUInt32(id2[i]);
+                    npck.WemList[i].Id = Convert.ToUInt32(id2[i]);
                 }
                 catch (ArgumentOutOfRangeException)
                 {
@@ -127,17 +127,17 @@ namespace RingingBloom.WWiseTypes.ViewModels
             OnPropertyChanged("wems");
         }
 
-        public void ExportLabels(SupportedGames mode, string currentFileName, List<uint> changedIds)
+        public void ExportLabels(SupportedGames mode, string currentFileName, List<ulong> changedIds)
         {
             npck.labels.Export(Directory.GetCurrentDirectory() + "/" + mode.ToString() + "/PCK/" + currentFileName + ".lbl", npck.WemList, changedIds);
         }
 
-        public List<uint> GetWemIds()
+        public List<ulong> GetWemIds()
         {
-            List<uint> wemIds = new List<uint>();
+            List<ulong> wemIds = new List<ulong>();
             for (int i = 0; i < npck.WemList.Count; i++)
             {
-                wemIds.Add(npck.WemList[i].id);
+                wemIds.Add(npck.WemList[i].Id);
             }
             return wemIds;
         }
@@ -146,12 +146,12 @@ namespace RingingBloom.WWiseTypes.ViewModels
         {
             for (int i = 0; i < mass.Count; i++)
             {
-                int index = npck.WemList.FindIndex(x => x.id == mass[i].replacingId);
+                int index = npck.WemList.FindIndex(x => x.Id == mass[i].replacingId);
                 Wem newWem = mass[i].wem;
                 if (index != -1)
                 {
-                    newWem.id = npck.WemList[index].id;
-                    newWem.languageEnum = npck.WemList[index].languageEnum;
+                    newWem.Id = npck.WemList[index].Id;
+                    newWem.LanguageEnum = npck.WemList[index].LanguageEnum;
                     npck.WemList[index] = newWem;
                 }
             }

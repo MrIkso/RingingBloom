@@ -32,7 +32,7 @@ namespace RingingBloom.Windows
         private string ExportPath = null;
         private string currentFileName = null;
         private bool LabelsChanged = false;
-        public List<uint> changedIds = new List<uint>();
+        public List<ulong> changedIds = new List<ulong>();
 
         public NPCKEditor(SupportedGames Mode,Options options)
         {
@@ -317,12 +317,12 @@ namespace RingingBloom.Windows
 
             string folderPath = System.IO.Path.GetDirectoryName(dialog.FileName);
 
-            List<uint> replacedIds = new List<uint>();
+            List<ulong> replacedIds = new List<ulong>();
             int totalReplaced = 0;
 
             for (int i = 0; i < viewModel.npck.WemList.Count; i++)
             {
-                uint wemId = viewModel.npck.WemList[i].id;
+                ulong wemId = viewModel.npck.WemList[i].Id;
 
                 string filePath = System.IO.Path.Combine(folderPath, wemId.ToString() + ".wem");
 
@@ -395,9 +395,9 @@ namespace RingingBloom.Windows
             }
             TextBox textbox = (TextBox)sender;
             Wem nWem = (Wem)textbox.DataContext;
-            if (!changedIds.Contains(nWem.id))
+            if (!changedIds.Contains(nWem.Id))
             {
-                changedIds.Add(nWem.id);
+                changedIds.Add(nWem.Id);
             }
 
         }
@@ -432,7 +432,7 @@ namespace RingingBloom.Windows
                 MessageBox.Show("NPCK not loaded.");
                 return;
             }
-            List<uint> wemIds = viewModel.GetWemIds();
+            List<ulong> wemIds = viewModel.GetWemIds();
             MassReplace mass = new MassReplace(wemIds, ImportPath);
             if(mass.ShowDialog() == true)
             {

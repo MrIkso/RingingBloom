@@ -10,7 +10,7 @@ namespace RingingBloom.WWiseTypes
 {
     public class Labels
     {
-        public IDictionary<uint, string> wemLabels = new Dictionary<uint, string>();
+        public IDictionary<ulong, string> wemLabels = new Dictionary<ulong, string>();
         //HIRC will get a dictionary too once implemented
         public Labels(XmlReader xml)
         {
@@ -31,7 +31,7 @@ namespace RingingBloom.WWiseTypes
             //just need to say default exists
         }
 
-        public void Export(string name, List<Wem> wems, List<uint> ids)
+        public void Export(string name, List<Wem> wems, List<ulong> ids)
         {
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
@@ -48,17 +48,17 @@ namespace RingingBloom.WWiseTypes
             {
                 foreach(Wem wem in wems)
                 {
-                    if(wem.id == ids[i])
+                    if(wem.Id == ids[i])
                     {
                         //now check and see if it already exists in our labels
                         if (wemLabels.ContainsKey(ids[i]))
                         {
-                            wemLabels[ids[i]] = wem.name;
+                            wemLabels[ids[i]] = wem.Name;
                         }
                         else
                         {
                             //add new key-value pair
-                            wemLabels.Add(new KeyValuePair<uint, string>(ids[i], wem.name));
+                            wemLabels.Add(new KeyValuePair<ulong, string>(ids[i], wem.Name));
                         }
                     }
                 }
@@ -67,7 +67,7 @@ namespace RingingBloom.WWiseTypes
             XmlWriter xml = XmlWriter.Create(name,settings);
             xml.WriteStartElement("RingingBloomLabel");//was gonna have it be the filename, but you can't put numbers in element names apparently
             xml.WriteAttributeString("LabelVersion", "1.0");//not used for version checking or anything, but will be useful to diagnose if an issue is caused by outdated version
-            foreach(KeyValuePair<uint,string> kvp in wemLabels)
+            foreach(KeyValuePair<ulong, string> kvp in wemLabels)
             {
                 xml.WriteStartElement("Wem");
                 xml.WriteAttributeString("Key", kvp.Key.ToString());

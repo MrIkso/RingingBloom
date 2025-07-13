@@ -21,7 +21,7 @@ namespace RingingBloom.NBNK
                 int size = 0;
                 for(int i = 0; i < wemList.Count; i++)
                 {
-                    size += (int)wemList[i].length;
+                    size += (int)wemList[i].Length;
                 }
                 return size;
             } }
@@ -80,10 +80,10 @@ namespace RingingBloom.NBNK
             uint currentOffset = 0;
             for (int i = 0; i < pLoadedMedia; i++)
             {
-                bw.Write(wemList[i].id);
+                bw.Write(wemList[i].Id);
                 bw.Write(currentOffset);
-                bw.Write(wemList[i].length);
-                currentOffset += wemList[i].length;
+                bw.Write(wemList[i].Length);
+                currentOffset += wemList[i].Length;
             }
             bw.Write(DATA);
             bw.Write(currentOffset);

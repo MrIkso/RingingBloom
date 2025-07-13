@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using RingingBloom.Common;
@@ -48,7 +46,7 @@ namespace RingingBloom
         public static void WriteUniNullTerminatedString(BinaryWriter bw, string str)
         {
             bw.Write(Encoding.Unicode.GetBytes(str.ToCharArray()));
-            bw.Write((Int16)0);
+            bw.Write((short)0);
         }
 
         public static BinaryReader OpenFile(string filename, Encoding encoding = null)//surprised it doesn't get too mad at me here

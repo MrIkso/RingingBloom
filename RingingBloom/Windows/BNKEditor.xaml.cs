@@ -28,7 +28,7 @@ namespace RingingBloom.Windows
         private string ImportPath = null;
         private string ExportPath = null;
         private bool LabelsChanged = false;
-        private List<uint> changedIds = new List<uint>();
+        private List<ulong> changedIds = new List<ulong>();
         public BNKEditor(SupportedGames Mode,Options options)
         {
             InitializeComponent();
@@ -139,12 +139,12 @@ namespace RingingBloom.Windows
 
             string folderPath = System.IO.Path.GetDirectoryName(dialog.FileName);
 
-            List<uint> replacedIds = new List<uint>();
+            List<ulong> replacedIds = new List<ulong>();
             int totalReplaced = 0;
 
             for (int i = 0; i < nbnk.DataIndex.wemList.Count; i++)
             {
-                uint wemId = nbnk.DataIndex.wemList[i].id;
+                ulong wemId = nbnk.DataIndex.wemList[i].Id;
 
                 // To verify a corresponding ID.
                 string filePath = System.IO.Path.Combine(folderPath, wemId.ToString() + ".wem");
@@ -153,7 +153,7 @@ namespace RingingBloom.Windows
                 {
                     try
                     {
-                        uint newId = nbnk.DataIndex.wemList[i].id;
+                        ulong newId = nbnk.DataIndex.wemList[i].Id;
                         Wem newWem = new Wem(System.IO.Path.GetFileName(filePath), newId.ToString(), new BinaryReader(File.Open(filePath, FileMode.Open)));
                         nbnk.DataIndex.wemList[i] = newWem;
 
@@ -277,7 +277,7 @@ namespace RingingBloom.Windows
                 for (int i = 0; i < nbnk.DataIndex.wemList.Count; i++)
                 {
                     TreeViewItem wem = new TreeViewItem();
-                    wem.Header = nbnk.DataIndex.wemList[i].name;
+                    wem.Header = nbnk.DataIndex.wemList[i].Name;
                     wem.Foreground = HelperFunctions.GetBrushFromHex("#AAAAAA");
                     List<string> wemTag = new List<string>();
                     wemTag.Add("DIDX");
@@ -373,7 +373,7 @@ namespace RingingBloom.Windows
                 {
                     if(tag[0] == "DIDX")
                     {
-                        uint newId = nbnk.DataIndex.wemList[Convert.ToInt32(tag[1])].id;
+                        ulong newId = nbnk.DataIndex.wemList[Convert.ToInt32(tag[1])].Id;
                         Wem newWem = new Wem(fileName, newId.ToString(), new BinaryReader(File.Open(fileName, FileMode.Open)));
                         nbnk.DataIndex.wemList[Convert.ToInt32(tag[1])] = newWem;
                     }
@@ -402,11 +402,11 @@ namespace RingingBloom.Windows
                     string name;
                     if(exportIds == MessageBoxResult.Yes)
                     {
-                        name = savePath + "\\" + newWem.name + ".wem";
+                        name = savePath + "\\" + newWem.Name + ".wem";
                     }
                     else
                     {
-                        name = savePath + "\\" + newWem.id + ".wem";
+                        name = savePath + "\\" + newWem.Id + ".wem";
                     }
                     BinaryWriter bw = new BinaryWriter(new FileStream(name, FileMode.OpenOrCreate));
                     bw.Write(newWem.file);
@@ -450,9 +450,9 @@ namespace RingingBloom.Windows
             }
             TextBox textbox = (TextBox)sender;
             Wem nWem = (Wem)textbox.DataContext;
-            if(!changedIds.Contains(nWem.id))
+            if(!changedIds.Contains(nWem.Id))
             {
-                changedIds.Add(nWem.id);
+                changedIds.Add(nWem.Id);
             }
 
         }
@@ -499,27 +499,27 @@ namespace RingingBloom.Windows
                 }
             }
             LabelsChanged = false;
-            changedIds = new List<uint>();
+            changedIds = new List<ulong>();
         }
 
         private void MassReplace(object sender, RoutedEventArgs e)
         {
-            List<uint> wemIds = new List<uint>();
+            List<ulong> wemIds = new List<ulong>();
             for (int i = 0; i < nbnk.DataIndex.wemList.Count; i++)
             {
-                wemIds.Add(nbnk.DataIndex.wemList[i].id);
+                wemIds.Add(nbnk.DataIndex.wemList[i].Id);
             }
             MassReplace mass = new MassReplace(wemIds, ImportPath);
             if (mass.ShowDialog() == true)
             {
                 for (int i = 0; i < mass.holder.wems.Count; i++)
                 {
-                    int index = nbnk.DataIndex.wemList.FindIndex(x => x.id == mass.holder.wems[i].replacingId);
+                    int index = nbnk.DataIndex.wemList.FindIndex(x => x.Id == mass.holder.wems[i].replacingId);
                     Wem newWem = mass.holder.wems[i].wem;
                     if (index != -1)
                     {
-                        newWem.id = nbnk.DataIndex.wemList[index].id;
-                        newWem.languageEnum = nbnk.DataIndex.wemList[index].languageEnum;
+                        newWem.Id = nbnk.DataIndex.wemList[index].Id;
+                        newWem.LanguageEnum = nbnk.DataIndex.wemList[index].LanguageEnum;
                         nbnk.DataIndex.wemList[index] = newWem;
                         PopulateTreeView(true);
                     }

@@ -22,14 +22,14 @@ namespace RingingBloom.Windows
     public class ReplacingWem
     {
         public Wem wem { get; set; }
-        public uint replacingId { get; set; }
+        public ulong replacingId { get; set; }
 
         public ReplacingWem(Wem newWem)
         {
             wem = newWem;
             replacingId = 0;
         }
-        public ReplacingWem(Wem newWem,uint iD)
+        public ReplacingWem(Wem newWem, ulong iD)
         {
             wem = newWem;
             replacingId = iD;
@@ -38,19 +38,19 @@ namespace RingingBloom.Windows
     public class ReplacingWems
     {
         public ObservableCollection<ReplacingWem> wems { get; set; }
-        public ObservableCollection<uint> wemIds { get; set; }
+        public ObservableCollection<ulong> wemIds { get; set; }
 
-        public ReplacingWems(List<uint> ids)
+        public ReplacingWems(List<ulong> ids)
         {
             wems = new ObservableCollection<ReplacingWem>();
-            wemIds = new ObservableCollection<uint>(ids);
+            wemIds = new ObservableCollection<ulong>(ids);
         }
     }
     public partial class MassReplace : Window
     {
         public ReplacingWems holder;
         string ImportPath;
-        public MassReplace(List<uint> wemIdList, string import)
+        public MassReplace(List<ulong> wemIdList, string import)
         {
             InitializeComponent();
             wemIdList.Insert(0, 0);
